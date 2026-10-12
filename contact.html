@@ -26,15 +26,39 @@
 
     <section class="page-content">
         <p>Зв'яжіться зі мною будь-яким зручним способом:</p>
-        <ul class="contact-list">
-            <li>📧 Email: example@mail.com</li>
-            <li>📱 Телефон: +380 00 000 0000</li>
-            <li>💬 Telegram: @username</li>
-        </ul>
+            <ul class="contact-list">
+                <li>📧 Email: example@mail.com</li>
+                <li>📱 Телефон: +380 00 000 0000</li>
+                <li>💬 Telegram: @username</li>
+            </ul>
+
+        <h2>Або напишіть повідомлення напряму</h2>
+        <form id="contact-form">
+            <div>
+                <label for="name">Ім'я</label>
+                <input type="text" id="name" name="name">
+                <span id="name-error" class="error-message"></span>
+            </div>
+
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+                <span id="email-error" class="error-message"></span>
+            </div>
+
+            <div>
+                <label for="message">Повідомлення</label>
+                <textarea id="message" name="message" rows="5"></textarea>
+                <span id="message-error" class="error-message"></span>
+            </div>
+            <button type="submit">Надіслати</button>
+            <p id="form-status"></p>
+        </form>
     </section>
 </main>
 
 <footer>
     <p>&copy; 2026 Мій Сайт. Створено під час навчання HTML.</p>
 </footer>
+<script src="script.js"></script>
 </body>
