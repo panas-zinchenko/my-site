@@ -6,44 +6,86 @@ const emailError = document.getElementById('email-error');
 const messageInput = document.getElementById('message');
 const messageError = document.getElementById('message-error');
 const formStatus = document.getElementById('form-status');
+function validateName() {
+    const value = nameInput.value.trim();
+    if (value.length === 0) {
+        nameError.textContent = 'Будь ласка, введіть ваше ім\'я.';
+        return false;
+    }
+    nameError.textContent = '';
+    return true;
+}
+function validateEmail() {
+    const value = emailInput.value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (value.length === 0) {
+        emailError.textContent = 'Будь ласка, введіть email.';
+        return false;
+    }
+
+    if (!emailPattern.test(value)) {
+        emailError.textContent = 'Введіть коректний email, наприклад you@example.com.';
+        return false;
+    }
+
+    emailError.textContent = '';
+    return true;
+}
+function validateMessage() {
+    const value = messageInput.value.trim();
+
+    if (value.length === 0) {
+        messageError.textContent = 'Будь ласка, введіть повідомлення.';
+        return false;
+    }
+
+    if (value.length < 10) {
+        messageError.textContent = 'Повідомлення має містити щонайменше 10 символів.';
+        return false;
+    }
+
+    messageError.textContent = '';
+    return true;
+}
+
+nameInput.addEventListener('blur', validateName);
+nameInput.addEventListener('input', function () {
+    if (nameError.textContent !== '') {
+        validateName();
+    }
+});
+emailInput.addEventListener('blur', validateEmail);
+emailInput.addEventListener('input', function () {
+    if (emailError.textContent !== '') {
+        validateEmail();
+    }
+});
+messageInput.addEventListener('blur', validateMessage);
+messageInput.addEventListener('input', function () {
+    if (messageError.textContent !== '') {
+        validateMessage();
+    }
+});
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     let isValid = true;
     formStatus.textContent = '';
 
-    const nameValue = nameInput.value.trim();
-
-    if (nameValue.length === 0) {
-        nameError.textContent = 'Будь ласка, введіть ваше ім\'я.';
+    const isNameValid = validateName();
+    if (!isNameValid) {
         isValid = false;
-    } else {
-        nameError.textContent = '';
     }
 
-    const emailValue = emailInput.value.trim();
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (emailValue.length === 0) {
-        emailError.textContent = 'Будь ласка, введіть email.';
+    const isEmailValid = validateEmail();
+    if (!isEmailValid) {
         isValid = false;
-    } else if (!emailPattern.test(emailValue)) {
-        emailError.textContent = 'Введіть коректний email, наприклад you@example.com.';
-        isValid = false;
-    } else {
-        emailError.textContent = '';
     }
 
-    const messageValue = messageInput.value.trim();
-
-    if (messageValue.length === 0) {
-        messageError.textContent = 'Будь ласка, введіть повідомлення.';
+    const isMessageValid = validateMessage();
+    if (!isMessageValid) {
         isValid = false;
-    } else if (messageValue.length < 10) {
-        messageError.textContent = 'Повідомлення має містити щонайменше 10 символів.';
-        isValid = false;
-    } else {
-        messageError.textContent = '';
     }
 
     if (isValid) {
